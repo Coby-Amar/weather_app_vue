@@ -13,7 +13,10 @@ declare module 'vue' {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LoadingScreen: typeof import('./src/components/LoadingScreen.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']
+    Main: typeof import('./src/components/Main.vue')['default']
     Password: typeof import('./src/components/Password.vue')['default']
     Register: typeof import('./src/components/Register.vue')['default']
+    SearchBar: typeof import('./src/components/SearchBar.vue')['default']
+    WeatherDetails: typeof import('./src/components/WeatherDetails.vue')['default']
   }
 }

@@ -3,20 +3,25 @@
     <AreYouSure />
     <LoadingScreen />
     <AppBar />
-    <v-main>
+    <v-main class="bg-grey-darken-3">
+      <SearchBar />
+      <WeatherDetails />
     </v-main>
   </v-app>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { user } from './api.service';
-import { useGlobalState } from './global.store';
+import { user, getCurrentWeather } from './api.service';
+import { useGlobalState } from '@/global.store';
 
 const { toggleLoadingScreen } = useGlobalState()
 onMounted(async () => {
-  toggleLoadingScreen()
-  await user()
-  toggleLoadingScreen()
+  navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
+    toggleLoadingScreen()
+    await getCurrentWeather(latitude, longitude)
+    await user()
+    toggleLoadingScreen()
+  })
 })
 </script>

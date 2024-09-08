@@ -17,7 +17,7 @@ instance.interceptors.request.use((req) => {
 })
 
 
-const { setUser, toggleLoading } = useGlobalState()
+const { setUser, setWeatherDetails, toggleLoading } = useGlobalState()
 
 /**
  * Auth API calls
@@ -89,3 +89,18 @@ export async function deleteUser() {
 /**
  * Weather API calls
  */
+export async function getCurrentWeather(latitude: number, longitude: number) {
+    try {
+        const { data } = await instance.get('/weather/current', {
+            params: {
+                lat: latitude,
+                lon: longitude
+            }
+        })
+        setWeatherDetails(data)
+        return true
+    } catch (error) {
+        console.error('error: ', error)
+        return false
+    }
+}
