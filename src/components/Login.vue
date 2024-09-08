@@ -35,12 +35,12 @@ const dialog = defineModel<boolean>('dialog', { default: false })
 const showPassword = ref(false)
 const form = ref<HTMLFormElement>()
 
-const username = defineModel<string>('username', { default: 'qwe@qwe.qwe' })
+const username = defineModel<string>('username', { default: '' })
 const usernameRules = [
   requiredValidation,
   usernameValidation
 ]
-const password = defineModel<string>('password', { default: 'qweQWE123!@#' })
+const password = defineModel<string>('password', { default: '' })
 const passwordRules = [
   requiredValidation,
   passwordValidation
