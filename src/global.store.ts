@@ -1,5 +1,5 @@
 import { reactive, toRefs } from "vue";
-import { CurrentWeatherDetails, WeatherDetailsApi } from "./types/weather";
+import { WeatherDetailsApi, ForcastWeatherDetailsApi } from "./types/weather";
 
 interface User {
     id: string
@@ -20,6 +20,7 @@ interface GlobalState {
     loadingScreen: boolean
     areYouSure: AreYouSure | null,
     weatherDetails: WeatherDetailsApi | null
+    forecastWeatherDetails: ForcastWeatherDetailsApi | null
 }
 
 const initState = {
@@ -28,6 +29,7 @@ const initState = {
     loadingScreen: false,
     areYouSure: null,
     weatherDetails: null,
+    forecastWeatherDetails: null,
 }
 
 const state = reactive<GlobalState>(initState)
@@ -48,6 +50,9 @@ export function useGlobalState() {
     function setWeatherDetails(details: WeatherDetailsApi | null) {
         state.weatherDetails = details
     }
+    function setForecastWeatherDetails(details: ForcastWeatherDetailsApi | null) {
+        state.forecastWeatherDetails = details
+    }
     function resetAll() {
         for (const key in state) {
             state[key] = null
@@ -59,6 +64,7 @@ export function useGlobalState() {
         setUser,
         setAreYouSure,
         setWeatherDetails,
+        setForecastWeatherDetails,
         toggleLoading,
         toggleLoadingScreen,
     }

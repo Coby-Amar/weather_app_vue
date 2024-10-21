@@ -12,15 +12,19 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { user, getCurrentWeather } from './api.service';
+import { getUser, getCurrentWeather, getCurrentWeatherForcast } from './api.service';
 import { useGlobalState } from '@/global.store';
 
-const { toggleLoadingScreen } = useGlobalState()
+const { toggleLoadingScreen, user } = useGlobalState()
 onMounted(async () => {
   navigator.geolocation.getCurrentPosition(async ({ coords: { latitude, longitude } }) => {
     toggleLoadingScreen()
-    await getCurrentWeather(latitude, longitude)
-    await user()
+    await getUser()
+    if (user) {
+      await getCurrentWeatherForcast(latitude, longitude)
+    } else {
+      await getCurrentWeather(latitude, longitude)
+    }
     toggleLoadingScreen()
   })
 })

@@ -9,7 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppBar: typeof import('./src/components/AppBar.vue')['default']
     AreYouSure: typeof import('./src/components/AreYouSure.vue')['default']
-    copy: typeof import('./src/components/Login copy.vue')['default']
+    copy: typeof import('./src/components/WeatherDetails copy.vue')['default']
+    ForecastDetails: typeof import('./src/components/ForecastDetails.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LoadingScreen: typeof import('./src/components/LoadingScreen.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']

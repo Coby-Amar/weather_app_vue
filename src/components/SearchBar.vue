@@ -10,8 +10,10 @@
 import { ref } from 'vue'
 import { usePlacesAutocomplete, geocodeByPlaceId } from 'vue-use-places-autocomplete'
 
-import { getCurrentWeather } from '@/api.service';
+import { getCurrentWeather, getWeatherForcast } from '@/api.service';
+import { useGlobalState } from '@/global.store';
 
+const { user } = useGlobalState()
 const query = ref('')
 import.meta.env.BASE_URL
 const { suggestions, loading, } = usePlacesAutocomplete(query, {
@@ -35,7 +37,11 @@ async function onSelected(value: any) {
     }
     const results = await geocodeByPlaceId(value.place_id)
     const { lat, lng } = results.pop().geometry.location
-    await getCurrentWeather(lat(), lng())
+    if (user) {
+        await getWeatherForcast(lat(), lng())
+    } else {
+        await getCurrentWeather(lat(), lng())
+    }
     query.value = ''
 }
 </script>

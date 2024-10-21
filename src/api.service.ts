@@ -17,7 +17,7 @@ instance.interceptors.request.use((req) => {
 })
 
 
-const { setUser, setWeatherDetails, toggleLoading } = useGlobalState()
+const { setUser, setWeatherDetails, setForecastWeatherDetails, toggleLoading } = useGlobalState()
 
 /**
  * Auth API calls
@@ -64,7 +64,7 @@ export async function logout() {
 /**
  * User API calls
  */
-export async function user() {
+export async function getUser() {
     try {
         const { data } = await instance.get('/user')
         setUser(data)
@@ -98,6 +98,36 @@ export async function getCurrentWeather(latitude: number, longitude: number) {
             }
         })
         setWeatherDetails(data)
+        return true
+    } catch (error) {
+        console.error('error: ', error)
+        return false
+    }
+}
+
+export async function getCurrentWeatherForcast(latitude: number, longitude: number) {
+    try {
+        const { data } = await instance.get('/weather/forecast', {
+            params: {
+                lat: latitude,
+                lon: longitude
+            }
+        })
+        setForecastWeatherDetails(data)
+        return true
+    } catch (error) {
+        console.error('error: ', error)
+        return false
+    }
+}
+
+export async function getWeatherForcast(latitude: number, longitude: number) {
+    try {
+        const { data } = await instance.post('/weather/forecast', {
+            lat: latitude,
+            lon: longitude
+        })
+        setForecastWeatherDetails(data)
         return true
     } catch (error) {
         console.error('error: ', error)
